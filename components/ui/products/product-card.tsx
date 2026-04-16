@@ -10,15 +10,10 @@ import {
   import { Button } from "@/components/ui/button";
   import { ChevronDown, ChevronDownIcon, ChevronUpIcon, StarIcon } from "lucide-react";
   import { cn } from "@/lib/utils";
+import { products } from "@/db/schema";
+import { InferSelectModel } from "drizzle-orm";
 
-  interface Product {
-    id: string;
-    name: string;
-    description: string;
-    tags: string[];
-    votes: number;
-    isFeatured: boolean;
-  }
+  type Product = InferSelectModel<typeof products>;
   
   export default function ProductCard({ product }: { 
     product: Product }) {
@@ -33,7 +28,7 @@ import {
                   <CardTitle className="text-lg group-hover:text-primary transition-colors">
                     {product.name}
                   </CardTitle>
-                  {product.isFeatured && (
+                  {product.voteCount > 100 && (
                     <Badge className="gap-1 bg-primary text-primary-foreground">
                       <StarIcon className="size-3 fill-current" />
                       Featured
@@ -54,7 +49,7 @@ import {
                 >
                     <ChevronUpIcon className="size-5" />
                 </Button>
-                <span className="text-sm font-semibold transition-colors text-foreground">10</span>
+                <span className="text-sm font-semibold transition-colors text-foreground">{product.voteCount}</span>
                 <Button variant="ghost" 
                 size="icon-sm" 
                 className={cn("h-8 w-8 text-primary", 
