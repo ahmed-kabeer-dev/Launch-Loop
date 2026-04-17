@@ -1,3 +1,4 @@
+"use cache";
 import { ArrowUpRightIcon, StarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
